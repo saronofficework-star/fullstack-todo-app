@@ -11,10 +11,11 @@ app.use(cors());
 app.use(express.json());
 
 // connect MongoDB
-mongoose.connect("mongodb://127.0.0.1:27017/todoDB")
+require("dotenv").config(); // if you added dotenv
+
+mongoose.connect("mongodb+srv://sarondip:sarondip123@cluster0.p6nbt4k.mongodb.net/todoDB")
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.log(err));
-
 
 // ✅ GET — get all tasks
 app.get("/tasks", async (req, res) => {

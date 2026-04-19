@@ -1,3 +1,5 @@
+require("dotenv").config(); // load env variables
+
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
@@ -11,12 +13,15 @@ app.use(cors());
 app.use(express.json());
 
 // connect MongoDB
-require("dotenv").config(); // if you added dotenv
-
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("MongoDB connected"))
-  .catch((err) => console.log(err));
-  
+  .catch((err) => console.log("Mongo Error:", err));
+
+// optional root route (so "/" doesn't show error)
+app.get("/", (req, res) => {
+  res.send("API is running 🚀");
+});
+
 // ✅ GET — get all tasks
 app.get("/tasks", async (req, res) => {
   try {
@@ -26,7 +31,6 @@ app.get("/tasks", async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
-
 
 // ✅ POST — add new task
 app.post("/tasks", async (req, res) => {
@@ -39,7 +43,6 @@ app.post("/tasks", async (req, res) => {
   }
 });
 
-
 // ✅ DELETE — delete task by ID
 app.delete("/tasks/:id", async (req, res) => {
   try {
@@ -49,7 +52,6 @@ app.delete("/tasks/:id", async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
-
 
 // ✅ PUT — update task by ID
 app.put("/tasks/:id", async (req, res) => {
@@ -61,8 +63,9 @@ app.put("/tasks/:id", async (req, res) => {
   }
 });
 
+// start server (IMPORTANT for Render)
+const PORT = process.env.PORT || 5000;
 
-// start server
-app.listen(5000, () => {
-  console.log("Server running on port 5000");
+app.listen(PORT, () => {
+  console.log("Server running on port " + PORT);
 });

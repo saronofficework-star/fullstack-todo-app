@@ -13,7 +13,7 @@ app.use(express.json());
 // connect MongoDB
 require("dotenv").config(); // if you added dotenv
 
-mongoose.connect("mongodb+srv://sarondip:sarondip123@cluster0.p6nbt4k.mongodb.net/todoDB")
+mongoose.connect("mongodb://sarondip:sarondip123@ac-yni8pn8-shard-00-00.p6nbt4k.mongodb.net:27017,ac-yni8pn8-shard-00-01.p6nbt4k.mongodb.net:27017,ac-yni8pn8-shard-00-02.p6nbt4k.mongodb.net:27017/todoDB?ssl=true&replicaSet=atlas-lbq1bq-shard-0&authSource=admin&retryWrites=true&w=majority")
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.log(err));
 

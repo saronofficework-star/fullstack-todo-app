@@ -13,10 +13,10 @@ app.use(express.json());
 // connect MongoDB
 require("dotenv").config(); // if you added dotenv
 
-mongoose.connect("mongodb://sarondip:sarondip123@ac-yni8pn8-shard-00-00.p6nbt4k.mongodb.net:27017,ac-yni8pn8-shard-00-01.p6nbt4k.mongodb.net:27017,ac-yni8pn8-shard-00-02.p6nbt4k.mongodb.net:27017/todoDB?ssl=true&replicaSet=atlas-lbq1bq-shard-0&authSource=admin&retryWrites=true&w=majority")
+mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.log(err));
-
+  
 // ✅ GET — get all tasks
 app.get("/tasks", async (req, res) => {
   try {
